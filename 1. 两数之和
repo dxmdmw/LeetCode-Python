@@ -1,0 +1,23 @@
+题目：给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。
+
+你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。
+
+示例:
+
+给定 nums = [2, 7, 11, 15], target = 9
+
+因为 nums[0] + nums[1] = 2 + 7 = 9
+所以返回 [0, 1]
+
+解答思路：
+暴力破解法的思路是使用分别枚举两个数的嵌套循环，时间复杂度为O(n^2)
+改进思路为枚举x，看target-x是否在nums中，使用hash_map映射enumerate(nums)，时间复杂度优化为O(n)
+
+代码：
+class Solution:
+    def twosum(self, nums, target):
+        hash_map = dict()
+        for i, x in enumerate(nums):
+            if target - x in hash_map:
+                return [i, hash_map[target - x]]
+            hash_map[x] = i
