@@ -1,0 +1,15 @@
+给定一个链表，判断链表中是否有环。
+
+思路：
+使用快慢指针，若有环则会相遇，判定相等即可。
+
+代码：
+class Solution(object):
+    def hasCycle(self, head):
+        slow = fast = head
+        while slow and fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow is fast:
+                return True
+        return False
