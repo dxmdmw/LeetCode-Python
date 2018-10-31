@@ -32,7 +32,7 @@ class Solution():
             res.append(max(nums[i:i+k]))
         return res
         
-思路二：使用双端队列deque，对
+思路二：使用双端队列deque，对新进入窗口的值判断是否可清理前值（前值不大于新值则用while+pop清理），每个元素只过window一次，所以总体上它没有把O(n)的复杂度嵌套在外层的循环里。
 时间复杂度为O(N)
 
 代码：
