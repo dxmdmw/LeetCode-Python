@@ -26,8 +26,47 @@ class Solution(object):
                 continue
             d = {}
             for x in nums[i+1:]:
+                # 如果当前 x 不在字典中，那么保存 -v-x 进字典，当之后的 x 在字典中时，说明之前有过的 v, x 找到了 (-v-x)
                 if x not in d:
                     d[-v-x] = 1
                 else:
                     res.add((v, -v-x, x))
         return map(list, res)
+        
+思路二：
+对排序后的数组枚举 i， 然后给定左指针 l 和右指针 r，当 nums[i] + nums[l]+ nums[r] < 0 时，左指针右移，反之，右指针左移。将和为 0 的结果保存起来。注意判重。时间复杂度为O(N^2)
+
+代码：
+class Solution(object):
+    def threeSum(self, nums):
+        # 判空
+        if len(nums) < 3:
+            return []
+            
+        res = []
+        
+        # 排序
+        nums.sort()
+        
+        for i in range(len(nums)-2):
+            # 判重后跳过
+            if i > 0 and nums[i] == nums[i-1]: 
+                continue
+            # 设置左右指针
+            l , r = i + 1, len(nums)-1 
+            while l < r :
+                s = nums[i] + nums[l] + nums[r]
+                if s < 0:
+                    l += 1
+                elif s > 0:
+                    r -= 1
+                else:
+                    res.append([nums[i], nums[l], nums[r]])
+                    # 判重后跳过
+                    while l < r and nums[l] == nums[l+1]:
+                        l += 1
+                    while l < r and nums[r] == nums[r-1]:
+                        r -= 1
+                    # 左右指针同时移动开始下一轮查找
+                    l += 1; r -= 1
+        return res
