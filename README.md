@@ -17,11 +17,6 @@
 * Feedback（反馈）
 
 ### 常见的数据结构
-|Abstract data type|        |               |      |    |       |            |
-|--:|     ||||||
-|Stack 栈   |Queue 队列      |               |Set    |       |Map       |       |
-|Vector 向量|Linked List 链表|Priority Queue|Hash Set|Tree Set|Hash Map|Tree Map|
-|           |               |Heap          |         |       |        |        |
 
 |-- Data Structure --|-- Algorithm --|
 |----|----|
