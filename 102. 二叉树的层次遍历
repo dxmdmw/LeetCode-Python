@@ -1,0 +1,90 @@
+给定一个二叉树，返回其按层次遍历的节点值。 （即逐层地，从左到右访问所有节点）。
+
+例如:
+给定二叉树: [3,9,20,null,null,15,7],
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+返回其层次遍历结果：
+
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+
+思路一：
+采用广度优先搜索 BFS 方式，对每一层进行遍历，该层结点加入结果后，再对下一层的左右结点进行遍历添加。引入了 Python 的双端队列 deque。时间复杂度 O(N)。
+
+代码：
+
+class Solution:
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        if not root: return []
+        result = []
+        # 引入双端队列 deque，并将根结点加进去
+        queue = collections.deque()
+        queue.append(root)
+        
+        # 开始循环队列
+        while queue:
+            level_size = len(queue)
+            current_level = []
+            
+            # 对当前层的每个结点，popleft()后加入 current_level
+            for _ in range(level_size):
+                node = queue.popleft()
+                current_level.append(node.val)
+                
+                # 将左右子节点加入队列，当前层处理完后，将进入下一层的循环
+                if node.left: queue.append(node.left)
+                if node.right: queue.append(node.right)              
+            
+            # 收集结果        
+            result.append(current_level)
+            
+        # 返回最终结果
+        return result
+        
+思路二：
+采用深度优先搜索 DFS 方式，对每一个子节点进行深度遍历，加入对应的层输出。递归的思想会使代码看起来整洁，时间复杂度同上。
+
+代码：
+
+class Solution:
+    def levelOrder(self, root):
+        # 判空
+        if not root: return []
+        
+        self.result = []
+        # 进入递归
+        self._dfs(root, 0)
+        
+        # 最终输出
+        return self.result
+        
+
+    def _dfs(self, node, level):
+        '''辅助函数 _dfs()，用以实现递归'''
+        # 递归终止条件：结点不存在时终止
+        if not node: return
+        
+        # 每进入一层，为该层准备一个 list 用以收集该层结点。
+        if len(self.result) < level + 1:
+            self.result.append([])
+            
+        # 将当前层的结点加入对应该层的 list
+        self.result[level].append(node.val)
+        
+        # 下一层递归
+        self._dfs(node.left, level + 1)
+        self._dfs(node.right, level +1)
+          
+    
