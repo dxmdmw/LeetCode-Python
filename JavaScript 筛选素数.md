@@ -1,8 +1,10 @@
 ```js
+// 声明
 'use strict';
 
 function get_primes(arr) {
     return arr.filter(function (element){
+        // 判输入值非数字
         if (typeof element !== 'number'){
             throw 'Not a number!';
         }
@@ -13,6 +15,7 @@ function get_primes(arr) {
             return true;
         }
         var res = true;
+        // 循环判定
         for (var i = 2; i < element; i++) {
             if (element % i === 0) {
                 res = false;
